@@ -16,13 +16,13 @@ Requires Python 3.11+.
 
 ```sh
 python -m venv .venv && source .venv/bin/activate
-pip install -e '.[test]'
+pip install -e ".[dev]"
 pytest
 python data/gen_synthetic.py
 python eval/run.py
 ```
 
-Oracle Database 23ai Free is optional for the Python simulation. Start it with `docker compose up -d`; schema and audit policy are in `db/schema.sql`. Set `ORACLE_PASSWORD`, `ORACLE_USER`, and `ORACLE_APP_PASSWORD` via environment for local use. The default offline embedding provider is deterministic bag-of-skills; it makes no network calls and needs no secrets. An optional OCI Generative AI embedding adapter can implement the provider interface in `aceu/embeddings.py`; configure OCI SDK credentials only through environment configuration or OCI Vault. Never commit credentials.
+To start Oracle Database 23ai Free, apply the schema and audit policy, and run a score-table smoke query in one step, run `./scripts/verify_oracle.sh`. Set `ORACLE_PASSWORD`, `ORACLE_USER`, `ORACLE_APP_PASSWORD`, and `ORACLE_ADMIN_PASSWORD` via environment for local use. The default offline embedding provider is deterministic bag-of-skills; it makes no network calls and needs no secrets. An optional OCI Generative AI embedding adapter can implement the provider interface in `aceu/embeddings.py`; configure OCI SDK credentials only through environment configuration or OCI Vault. Never commit credentials.
 
 ```mermaid
 flowchart LR
