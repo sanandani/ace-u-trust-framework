@@ -1,0 +1,13 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: aceu-oracle-free
+    ports: ["1521:1521"]
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:-synthetic_dev_only}
+      APP_USER: ${ORACLE_USER:-aceu}
+      APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD:-synthetic_dev_only}
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+volumes:
+  oracle-data:

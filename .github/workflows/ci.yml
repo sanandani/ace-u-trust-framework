@@ -1,0 +1,34 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -e '.[test]'
+      - run: pytest
+      - run: python eval/run.py
+  oracle-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gvenzl/setup-oracle-free@v1
+        with:
+          oracle-free-version: 23-slim
+          app-user: aceu
+          app-user-password: synthetic_ci_only
+          startup-timeout: 300
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install oracledb
+      - name: Apply schema and verify Oracle objects
+        env:
+          ORACLE_USER: aceu
+          ORACLE_PASSWORD: synthetic_ci_only
+          ORACLE_DSN: localhost:1521/FREEPDB1
+          ORACLE_ADMIN_PASSWORD: synthetic_ci_only
+        run: python db/apply_schema.py
