@@ -1,0 +1,5 @@
+contexts:
+  hiring: {A: 0.25, C: 0.35, E: 0.25, U: 0.15}
+  open_source: {A: 0.25, C: 0.25, E: 0.30, U: 0.20}
+ranking:
+  multi_objective: {relevance: 0.4, trust: 0.4, diversity: 0.2}

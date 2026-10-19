@@ -1,0 +1,11 @@
+contexts:
+  hiring:
+    authenticity: [longitudinal_skill_consistency, longitudinal_role_consistency, authored_artifact_overlap]
+    credibility: [verified_credentials, inferred_endorsements, context_relevance, uncertainty]
+    empathy: [interaction_quality, reciprocity, interaction_diversity]
+    uniqueness: [skill_combo_rarity, role_complementarity]
+  open_source:
+    authenticity: [longitudinal_skill_consistency, longitudinal_role_consistency, authored_artifact_overlap]
+    credibility: [verified_contributions, inferred_peer_endorsements, project_context, uncertainty]
+    empathy: [feedback_quality, mentorship, reciprocity, interaction_diversity]
+    uniqueness: [skill_combo_rarity, cross_domain_complementarity]

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "aceu-trust-framework"
+version = "0.1.0"
+description = "Synthetic reference implementation of the ACE-U conceptual framework"
+requires-python = ">=3.11"
+dependencies = ["PyYAML>=6.0", "oracledb>=2.5"]
+[project.optional-dependencies]
+test = ["pytest>=8"]
+[tool.setuptools.packages.find]
+include = ["aceu*"]
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
