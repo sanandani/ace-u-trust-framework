@@ -58,4 +58,3 @@ BEGIN
 END;
 /
 -- Oracle Unified Auditing policy for score reads.
--- The apply_schema.py runner creates this policy using a DBA connection.

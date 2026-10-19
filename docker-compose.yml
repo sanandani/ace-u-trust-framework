@@ -7,6 +7,12 @@ services:
       ORACLE_PASSWORD: ${ORACLE_PASSWORD:-synthetic_dev_only}
       APP_USER: ${ORACLE_USER:-aceu}
       APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD:-synthetic_dev_only}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 120s
     volumes:
       - oracle-data:/opt/oracle/oradata
 volumes:

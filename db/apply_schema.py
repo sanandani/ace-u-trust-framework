@@ -24,18 +24,33 @@ def statements():
     return out
 
 def main():
-    conn=oracledb.connect(user=os.environ['ORACLE_USER'], password=os.environ['ORACLE_PASSWORD'], dsn=os.environ.get('ORACLE_DSN','localhost:1521/FREEPDB1'))
+    conn=oracledb.connect(user=os.environ['ORACLE_USER'], password=os.environ.get('ORACLE_APP_PASSWORD', os.environ['ORACLE_PASSWORD']), dsn=os.environ.get('ORACLE_DSN','localhost:1521/FREEPDB1'))
     cur=conn.cursor()
-    for statement in statements(): cur.execute(statement)
+    for statement in statements():
+        first=statement.split(None, 5)
+        if len(first) >= 3 and first[0].upper() == 'CREATE':
+            if first[1].upper() == 'TABLE':
+                object_type, object_name = 'TABLE', first[2]
+            elif first[1].upper() == 'OR' and first[2].upper() == 'REPLACE' and len(first) >= 5:
+                object_type, object_name = first[3].upper(), first[4].split('(')[0]
+            else:
+                object_type = object_name = None
+            if object_type and object_type in ('TABLE', 'FUNCTION'):
+                cur.execute('SELECT COUNT(*) FROM user_objects WHERE object_type=:kind AND object_name=:name', kind=object_type, name=object_name.upper())
+                if cur.fetchone()[0]:
+                    continue
+        cur.execute(statement)
     cur.execute("SELECT table_name FROM user_tables WHERE table_name IN ('PROFILES','ARTIFACTS','SIGNALS','SCORES','CONTEST_LOG')")
     assert len(cur.fetchall())==5
     conn.close()
     admin=oracledb.connect(user=os.environ.get('ORACLE_ADMIN_USER','system'), password=os.environ['ORACLE_ADMIN_PASSWORD'], dsn=os.environ.get('ORACLE_DSN','localhost:1521/FREEPDB1'))
     ac=admin.cursor()
-    try: ac.execute('CREATE AUDIT POLICY aceu_score_read_policy ACTIONS SELECT ON aceu.scores')
-    except oracledb.DatabaseError as exc:
-        if 'ORA-00955' not in str(exc): raise
-    ac.execute('AUDIT POLICY aceu_score_read_policy')
+    audit_sql=Path(__file__).with_name('audit.sql').read_text()
+    for statement in (part.strip() for part in audit_sql.split(';')):
+        if not statement: continue
+        try: ac.execute(statement)
+        except oracledb.DatabaseError as exc:
+            if exc.args[0].code != 46358: raise
     ac.execute("SELECT policy_name FROM audit_unified_policies WHERE policy_name='ACEU_SCORE_READ_POLICY'")
     assert ac.fetchone()
     admin.close()
