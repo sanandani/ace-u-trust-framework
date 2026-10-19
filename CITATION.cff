@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this conceptual reference implementation, cite the paper."
+title: "Trust-Aware Professional Identity Representation in AI-Mediated Systems"
+authors:
+  - family-names: Anandani
+    given-names: Shubham
+    orcid: "https://orcid.org/0009-0005-2203-2235"
+conference:
+  name: "IEEE SoutheastCon 2026"
