@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Synthetic-only ACE-U conceptual reference implementation."><title>Synthetic evaluation | ACE-U Trust Framework</title>
+<link rel="stylesheet" href="styles.css"></head><body><header class="top"><a class="brand" href="index.html">ACE-U Trust Framework</a><nav><a href="index.html">Overview</a><a href="evaluation.html">Synthetic evaluation</a><a href="https://github.com/sanandani/ace-u-trust-framework">GitHub</a></nav></header>
+<main><section class="hero"><p class="eyebrow">Offline simulation</p><h1>Synthetic evaluation</h1><p class="scope">Synthetic data, not empirical validation. The generated scores are illustrative harness outputs, not evidence of effectiveness on real people or systems.</p>
+<pre class="report"># Synthetic offline evaluation (synthetic data only)
+
+This is a reproducible simulation, not empirical validation and not evidence of real-world effectiveness. Dataset seed: 2026; profiles: 80. Top-k: 20.
+
+| Ranking | Top-k diversity (fraction with synthetic diversity &gt; 0.5) | Score/rater Pearson correlation |
+|---|---:|---:|
+| ACE-U multi-objective | 0.850 | -0.0099 |
+| Credibility-only baseline | 0.650 | -0.0257 |
+
+Synthetic rater scores are generated independently; metrics are illustrative harness outputs only.
+</pre></section></main><footer><p>Conceptual reference implementation · Synthetic data only · Not empirically validated</p></footer></body></html>

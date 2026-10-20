@@ -11,6 +11,8 @@ jobs:
       - run: pip install -e '.[dev]'
       - run: pytest
       - run: python eval/run.py
+      - run: python scripts/build_site.py
+      - run: git diff --exit-code -- site/
   oracle-schema:
     runs-on: ubuntu-latest
     steps:
