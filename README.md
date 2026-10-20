@@ -1,5 +1,7 @@
 # ACE-U Trust Framework
 
+[![CI](https://github.com/sanandani/ace-u-trust-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/sanandani/ace-u-trust-framework/actions/workflows/ci.yml)
+
 **Scope: This is a synthetic-data-only reference implementation of Section VI's architecture and evaluation pathway for a conceptual paper. It is not empirically validated. It never uses real people's profiles.**
 
 ## Abstract
@@ -47,4 +49,4 @@ Oracle Database 23ai Free (`gvenzl/oracle-free`), python-oracledb, Oracle AI Vec
 
 ## Oracle ACE articles
 
-TODO: add links to my Oracle ACE articles.
+[Oracle ACE series](https://imshubh.com/blog.html)
